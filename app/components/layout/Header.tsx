@@ -39,9 +39,11 @@ export default function Header() {
         <header
             className={clsx(
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-                scrolled || isOpen
-                    ? "bg-background/95 backdrop-blur-md py-4 border-white/10"
-                    : "bg-transparent py-6 border-transparent"
+                isOpen
+                    ? "bg-black py-4 border-white/10"
+                    : scrolled
+                        ? "bg-background/95 backdrop-blur-md py-4 border-white/10"
+                        : "bg-black/70 py-6 border-transparent"
             )}
         >
             <div className="max-width-container flex items-center justify-between relative z-50">
@@ -69,14 +71,14 @@ export default function Header() {
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="md:hidden text-foreground p-2 focus:outline-none transition-transform duration-300"
+                    className="md:hidden text-foreground p-2 focus:outline-none transition-transform duration-300 "
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Toggle Menu"
                 >
                     {isOpen ? (
-                        <X className="w-8 h-8" />
+                        <X className="w-8 h-8 cursor-pointer" />
                     ) : (
-                        <Menu className="w-8 h-8" />
+                        <Menu className="w-8 h-8 cursor-pointer" />
                     )}
                 </button>
             </div>
@@ -89,13 +91,13 @@ export default function Header() {
                 )}
             >
                 <div className="flex flex-col h-full p-8 pt-32">
-                    <nav className="flex flex-col gap-8">
+                    <nav className="flex flex-col gap-8 ">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className="text-3xl font-serif tracking-widest uppercase hover:text-foreground transition-colors border-b border-white/5 pb-6"
+                                className="text-2xl font-serif tracking-widest uppercase hover:text-foreground transition-colors border-b border-white/5 pb-6 "
                             >
                                 {link.name}
                             </Link>
