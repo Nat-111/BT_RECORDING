@@ -49,20 +49,31 @@ export default function LightboxModal({
                     {/* Navigation Buttons */}
                     <button
                         onClick={onPrevious}
-                        className="absolute left-4 md:left-10 z-[110] p-4 text-white hover:text-foreground transition-colors hidden md:block"
+                        className="absolute left-4 md:left-10 z-[110] p-4 text-white hover:text-foreground transition-colors"
                     >
-                        <ChevronLeft className="w-12 h-12" />
+                        <ChevronLeft className="w-8 h-8 md:w-12 md:h-12" />
                     </button>
                     <button
                         onClick={onNext}
-                        className="absolute right-4 md:right-10 z-[110] p-4 text-white hover:text-foreground transition-colors hidden md:block"
+                        className="absolute right-4 md:right-10 z-[110] p-4 text-white hover:text-foreground transition-colors"
                     >
-                        <ChevronRight className="w-12 h-12" />
+                        <ChevronRight className="w-8 h-8 md:w-12 md:h-12" />
                     </button>
 
                     {/* Main Image */}
                     <motion.div
                         key={selectedPhotoIndex}
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.2}
+                        onDragEnd={(_, info) => {
+                            const swipeThreshold = 50;
+                            if (info.offset.x > swipeThreshold) {
+                                onPrevious();
+                            } else if (info.offset.x < -swipeThreshold) {
+                                onNext();
+                            }
+                        }}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
