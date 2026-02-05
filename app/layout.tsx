@@ -3,6 +3,8 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
+import SplashLoader from "@/app/components/layout/SplashLoader";
+import SiteReveal from "@/app/components/layout/SiteReveal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,11 +47,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="antialiased scroll-smooth">
-        <Header />
-        <main className="min-h-screen pt-20">
-          {children}
-        </main>
-        <Footer />
+        <SplashLoader />
+        <SiteReveal>
+          <Header />
+          <main className="min-h-screen pt-20">
+            {children}
+          </main>
+          <Footer />
+        </SiteReveal>
       </body>
     </html>
   );
